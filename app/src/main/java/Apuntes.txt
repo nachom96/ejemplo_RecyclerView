@@ -1,0 +1,23 @@
+0º Se añaden las dependencias correspondientes en el build.gradle a nivel de módulo
+
+1º Se crea el layour main_activity con el recycler view y una textview que será el empty view
+
+2º Se le pone al main_activity el tools:listitem que se le pasará un nuevo layout (main_item) (crearlo)
+que será donde se dibujarán los elementos que se mostrarán en el RecyclerView
+
+3º Se crea el MainAdapter, la cual te obligará a implementar los 3 métodos correspondientes y se usa el binding para evitar los
+findViewById()
+
+4º Se crea una data class de Student con id, nombre y edad
+
+5º Se modifica el MainActivity para hacer el setupRecyclerView() con los ajustes correspondientes al recyclerview (hasta el paso 5 incluido)
+
+6º Se crea la interfaz Repository que posee un método para obtener la lista de alumnos
+
+7º Se crea el object DefaultRepository con los estudiantes
+
+8º Se crea el MainViewModel con su correspondiente LiveData
+
+9º Se crea el MainViewModelFactory
+
+10º Se vuelve a modificar el MainActivity(a partir del paso 6)

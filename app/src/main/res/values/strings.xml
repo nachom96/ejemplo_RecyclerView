@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Proyecto StudenList</string>
+    <string name="main_lblEmptyView">No hay elementos todavía</string>
+</resources>
