@@ -31,7 +31,7 @@ class MainAdapter : ListAdapter<Student, MainAdapter.ViewHolder>(StudentDiffCall
 
         init {
             itemView.setOnClickListener {
-                val position = bindingAdapterPosition // Si no funciona, usar adapterPosition de los apuntes (deprecado
+                val position = bindingAdapterPosition // Si no funciona, usar adapterPosition de los apuntes (deprecado)
                 if (position != RecyclerView.NO_POSITION) {
                     onItemClickListener?.invoke(position)
                 }

@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.example.proyectostudenlist.R
 import com.example.proyectostudenlist.data.DefaultRepository
 import com.example.proyectostudenlist.data.entity.Student
 import com.example.proyectostudenlist.databinding.MainActivityBinding
+import com.example.proyectostudenlist.ui.utils.doOnSwiped
 
 class MainActivity : AppCompatActivity() {
     //1º
@@ -60,6 +58,14 @@ class MainActivity : AppCompatActivity() {
             itemAnimator = DefaultItemAnimator()
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             adapter = listAdapter
+            doOnSwiped { viewHolder, _ ->
+                deleteStudent(listAdapter.currentList[viewHolder.bindingAdapterPosition])
+                // Si no funciona, usar adapterPosition de los apuntes (deprecado)
+            }
         }
+    }
+
+    private fun deleteStudent(student: Student) {
+        // ...
     }
 }
