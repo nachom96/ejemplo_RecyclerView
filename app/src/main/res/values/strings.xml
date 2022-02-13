@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Proyecto StudenList</string>
     <string name="main_lblEmptyView">No hay elementos todavía</string>
+    <string name="main_student_deleted">Student deleted</string>
+    <string name="main_undo">Undo</string>
+    <string name="main_btnDeleteAll">Delete All</string>
 </resources>

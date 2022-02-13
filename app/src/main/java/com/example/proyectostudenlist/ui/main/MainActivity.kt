@@ -11,6 +11,7 @@ import com.example.proyectostudenlist.data.DefaultRepository
 import com.example.proyectostudenlist.data.entity.Student
 import com.example.proyectostudenlist.databinding.MainActivityBinding
 import com.example.proyectostudenlist.ui.utils.doOnSwiped
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     //1º
@@ -67,5 +68,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteStudent(student: Student) {
         viewModel.deleteStudent(student)
+        showUndo(student)
+    }
+
+    private fun showUndo(student: Student) {
+        Snackbar.make(binding.root, getString(R.string.main_student_deleted), // El main_student_deleted usa el % para mostrar el estudiante
+            Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.main_undo)) { addStudent(student) }
+            .show()
+    }
+
+    private fun addStudent(student: Student) {
+        viewModel.addStudent(student)
     }
 }

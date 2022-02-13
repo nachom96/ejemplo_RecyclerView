@@ -21,7 +21,7 @@ object DefaultRepository : Repository{
             )
         )
 
-    override fun queryStudents(): LiveData<List<Student>> =
+    override fun queryAllStudents(): LiveData<List<Student>> =
         Transformations.map(students) { list -> list.sortedBy {it.name} }
 
     override fun deleteStudent(student: Student): Boolean {
@@ -30,6 +30,15 @@ object DefaultRepository : Repository{
         students.value = newList
         return removed
     }
+
+    override fun addStudent(student: Student): Boolean {
+        val newList = students.value!! + student
+        val added = newList.size != students.value!!.size
+        students.value = newList
+        return added
+    }
+
+
 
 
 }
