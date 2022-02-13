@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(DefaultRepository, application)
+        MainViewModelFactory(DefaultRepository, application, this)
     }
 
     private fun showStudent(student: Student) {

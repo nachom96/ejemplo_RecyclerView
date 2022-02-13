@@ -9,10 +9,14 @@ import com.example.proyectostudenlist.data.entity.Student
 import com.example.proyectostudenlist.ui.utils.Event
 
 //1º
-class MainViewModel(private val repository: Repository,
-                    private val application: Application) : ViewModel() {
+private const val STATE_FILTER: String = "STATE_FILTER"
 
-    private val legalAgeOnly: MutableLiveData<Boolean> = MutableLiveData(false)
+class MainViewModel(private val repository: Repository,
+                    private val application: Application,
+                    savedStateHandle: SavedStateHandle) : ViewModel() {
+
+    private val legalAgeOnly: MutableLiveData<Boolean> =
+        savedStateHandle.getLiveData(STATE_FILTER, false)
 
     var students: LiveData<List<Student>> = legalAgeOnly.switchMap {
         if (it) {
