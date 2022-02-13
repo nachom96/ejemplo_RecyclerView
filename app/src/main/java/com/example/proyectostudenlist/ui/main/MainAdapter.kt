@@ -51,9 +51,9 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
         init {
             itemView.setOnClickListener {
-                val position = adapterPosition // Probar con bindingAdapterPosition
+                val position = bindingAdapterPosition // Si no funciona, usar adapterPosition de los apuntes (deprecado
                 if (position != RecyclerView.NO_POSITION) {
-                    onItemClickListener?.onItemClick(position)
+                    onItemClickListener?.invoke(position)
                 }
             }
         }
@@ -66,8 +66,8 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     }
 
-    //9º Después del paso 8 del MainActivity
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
-    }
+
 }
+
+//9º Después del paso 8 del MainActivity
+typealias OnItemClickListener = (position: Int) -> Unit

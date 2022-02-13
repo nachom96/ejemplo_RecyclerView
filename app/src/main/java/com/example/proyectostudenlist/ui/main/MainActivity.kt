@@ -21,12 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
     //2º //8º Después del paso 13 del MainAdapter
     private val listAdapter: MainAdapter = MainAdapter().apply {
-        setOnItemClickListener(object: MainAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                showStudent(getItem(position))
-            }
-
-        })
+        setOnItemClickListener { showStudent(getItem(it)) }
     }
 
     // 9º Para añadir el ripple effect sobre los elementos, añadir

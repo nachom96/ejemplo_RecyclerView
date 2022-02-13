@@ -23,3 +23,5 @@ findViewById()
 10º Se vuelve a modificar el MainActivity(a partir del paso 6)
 
 11º Se vuelve a modificar el MainAdapter para añadir funcionalidad al pulsar sobre un elemento del RecyclerView
+
+12º Se añade tipo función en el MainAdapter y se modifica el MainActivity para mostrar los estudiantes
