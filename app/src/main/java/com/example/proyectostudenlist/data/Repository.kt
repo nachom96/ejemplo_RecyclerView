@@ -8,6 +8,7 @@ interface Repository {
     fun queryAllStudents(): LiveData<List<Student>>
     fun deleteStudent(student: Student): Boolean
     fun addStudent(student: Student): Boolean
+    fun deleteAllStudents()
 
 
 }

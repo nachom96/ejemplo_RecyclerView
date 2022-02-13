@@ -18,5 +18,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         repository.addStudent(student)
     }
 
+    fun deleteAllStudents() {
+        if (students.value?.isNotEmpty() == true) {
+            repository.deleteAllStudents()
+        }
+    }
+
 }
 

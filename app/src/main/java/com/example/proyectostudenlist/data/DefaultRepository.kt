@@ -38,6 +38,10 @@ object DefaultRepository : Repository{
         return added
     }
 
+    override fun deleteAllStudents() {
+        students.value = emptyList()
+    }
+
 
 
 

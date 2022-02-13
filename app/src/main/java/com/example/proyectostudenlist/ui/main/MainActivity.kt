@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViews() {
         setupRecyclerView()
+        binding.btnDeleteAll.setOnClickListener {
+            viewModel.deleteAllStudents()
+        }
     }
 
     private fun setupRecyclerView() {
