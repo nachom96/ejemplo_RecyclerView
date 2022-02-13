@@ -9,21 +9,11 @@ import com.example.proyectostudenlist.data.entity.Student
 //1º
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _students: MutableLiveData<List<Student>> = MutableLiveData()
-    val students: LiveData<List<Student>> get() = _students
-
-    init {
-        queryStudents()
-    }
-
-    private fun queryStudents() {
-        _students.value = repository.queryStudents()
-    }
+    val students: LiveData<List<Student>> = repository.queryStudents()
 
     fun deleteStudent(student: Student) {
-        if (repository.deleteStudent(student)) {
-            queryStudents()
-        }
+        repository.deleteStudent(student)
     }
 
 }
+

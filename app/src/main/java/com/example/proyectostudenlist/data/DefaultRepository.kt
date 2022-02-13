@@ -1,24 +1,34 @@
 package com.example.proyectostudenlist.data
 
+import androidx.lifecycle.LiveData
 import com.example.proyectostudenlist.data.entity.Student
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 
 object DefaultRepository : Repository{
 
-    private var students: List<Student> = listOf(
-        Student(1, "Nacho", 25),
-        Student(2, "Noe", 23),
-        Student(3, "Duende", 23),
-        Student(4, "Pablos", 23),
-        Student(5, "Piedras", 23),
-        Student(6, "Elena", 23),
-    )
+    private val students: MutableLiveData<List<Student>> =
+        MutableLiveData(
+            listOf(
+                Student(1, "Nacho", 25),
+                Student(2, "Noe", 23),
+                Student(3, "Duende3", 23),
+                Student(4, "Piedad", 23),
+                Student(5, "Elena", 23),
+                Student(6, "Pablo", 23),
 
-    override fun queryStudents(): List<Student> = students.toList()
+
+            )
+        )
+
+    override fun queryStudents(): LiveData<List<Student>> =
+        Transformations.map(students) { list -> list.sortedBy {it.name} }
 
     override fun deleteStudent(student: Student): Boolean {
-        val oldSize = students.size
-        students = students - student
-        return students.size < oldSize
+        val newList = students.value!!.filter { it.id != student.id }
+        val removed = newList.size != students.value!!.size
+        students.value = newList
+        return removed
     }
 
 
