@@ -3,6 +3,7 @@ package com.example.proyectostudenlist.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,10 +19,24 @@ class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by lazy{
         MainActivityBinding.inflate(layoutInflater)
     }
-    //2º
-    private val listAdapter: MainAdapter = MainAdapter()
+    //2º //8º Después del paso 13 del MainAdapter
+    private val listAdapter: MainAdapter = MainAdapter().apply {
+        setOnItemClickListener(object: MainAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                showStudent(getItem(position))
+            }
 
-    //6º (Después de haber creado la factoría)
+        })
+    }
+
+    // 9º Para añadir el ripple effect sobre los elementos, añadir
+    // android:background="?android:attr/selectableItemBackground" en main_item (en clRoot)
+    private fun showStudent(student: Student) {
+        Toast.makeText(this, student.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+
+        //6º (Después de haber creado la factoría)
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(DefaultRepository)
     }

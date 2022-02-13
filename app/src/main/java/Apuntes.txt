@@ -21,3 +21,5 @@ findViewById()
 9º Se crea el MainViewModelFactory
 
 10º Se vuelve a modificar el MainActivity(a partir del paso 6)
+
+11º Se vuelve a modificar el MainAdapter para añadir funcionalidad al pulsar sobre un elemento del RecyclerView

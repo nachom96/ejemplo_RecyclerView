@@ -13,6 +13,17 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     //3º
     private var data: List<Student> = emptyList()
 
+    //10º
+    private var onItemClickListener: OnItemClickListener? = null
+
+    //11º
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.onItemClickListener = onItemClickListener
+    }
+
+    //12º
+    fun getItem(position: Int) = data[position]
+
     //5º
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -34,13 +45,29 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    //2º
-    class ViewHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    //2º //13º, en OnItemClickListener de los apuntes
+    inner class ViewHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition // Probar con bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickListener?.onItemClick(position)
+                }
+            }
+        }
+
         //7º
         fun bind(student: Student){
             binding.lblName.text = student.name
             binding.lblAge.text = student.age.toString()
         }
 
+    }
+
+    //9º Después del paso 8 del MainActivity
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
     }
 }
