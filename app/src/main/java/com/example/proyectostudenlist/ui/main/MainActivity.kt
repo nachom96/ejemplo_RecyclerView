@@ -66,6 +66,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteStudent(student: Student) {
-        // ...
+        viewModel.deleteStudent(student)
     }
 }

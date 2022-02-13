@@ -4,7 +4,7 @@ import com.example.proyectostudenlist.data.entity.Student
 
 object DefaultRepository : Repository{
 
-    private val students: List<Student> = listOf(
+    private var students: List<Student> = listOf(
         Student(1, "Nacho", 25),
         Student(2, "Noe", 23),
         Student(3, "Duende", 23),
@@ -14,6 +14,12 @@ object DefaultRepository : Repository{
     )
 
     override fun queryStudents(): List<Student> = students.toList()
+
+    override fun deleteStudent(student: Student): Boolean {
+        val oldSize = students.size
+        students = students - student
+        return students.size < oldSize
+    }
 
 
 }
