@@ -4,4 +4,5 @@
     <string name="main_student_deleted">Student deleted</string>
     <string name="main_undo">Undo</string>
     <string name="main_btnDeleteAll">Delete All</string>
+    <string name="main_no_students_to_delete">No students to delete</string>
 </resources>

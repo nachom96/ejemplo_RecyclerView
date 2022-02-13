@@ -11,6 +11,7 @@ import com.example.proyectostudenlist.data.DefaultRepository
 import com.example.proyectostudenlist.data.entity.Student
 import com.example.proyectostudenlist.databinding.MainActivityBinding
 import com.example.proyectostudenlist.ui.utils.doOnSwiped
+import com.example.proyectostudenlist.ui.utils.observeEvent
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(DefaultRepository)
+        MainViewModelFactory(DefaultRepository, application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +41,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.students.observe(this) { showStudents(it) }
+        viewModel.onShowMessage.observeEvent(this) {
+            showMessage(it)
+        }
     }
 
     private fun showStudents(students: List<Student>) {
         listAdapter.submitList(students)
         binding.lblEmptyView.visibility =
             if (students.isEmpty()) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun showMessage(it: String) {
+        Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setupViews() {
