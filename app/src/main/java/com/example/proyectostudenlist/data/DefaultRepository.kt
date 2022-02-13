@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.proyectostudenlist.data.entity.Student
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 
 object DefaultRepository : Repository{
 
@@ -16,12 +17,13 @@ object DefaultRepository : Repository{
                 Student(4, "Piedad", 23),
                 Student(5, "Elena", 23),
                 Student(6, "Pablo", 23),
-
-
+                Student(7, "MiniNacho", 17),
+                Student(8, "MiniNoe", 15),
+                Student(9, "MiniPablo", 15),
             )
         )
 
-    override fun queryAllStudents(): LiveData<List<Student>> =
+    override fun queryStudents(): LiveData<List<Student>> =
         Transformations.map(students) { list -> list.sortedBy {it.name} }
 
     override fun deleteStudent(student: Student): Boolean {
@@ -41,6 +43,11 @@ object DefaultRepository : Repository{
     override fun deleteAllStudents() {
         students.value = emptyList()
     }
+
+    override fun queryLegalAgeStudents(): LiveData<List<Student>> =
+        students.map { list ->
+            list.filter { it.age >= 18 }.sortedBy {it.name}
+        }
 
 
 

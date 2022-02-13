@@ -1,9 +1,8 @@
 package com.example.proyectostudenlist.ui.main
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.view.View
+import androidx.lifecycle.*
 import com.example.proyectostudenlist.R
 import com.example.proyectostudenlist.data.Repository
 import com.example.proyectostudenlist.data.entity.Student
@@ -13,11 +12,37 @@ import com.example.proyectostudenlist.ui.utils.Event
 class MainViewModel(private val repository: Repository,
                     private val application: Application) : ViewModel() {
 
+    private val legalAgeOnly: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    var students: LiveData<List<Student>> = legalAgeOnly.switchMap {
+        if (it) {
+            repository.queryLegalAgeStudents()
+        } else {
+            repository.queryStudents()
+        }
+    }
+
+    val filterText: LiveData<String> = legalAgeOnly.map { legalAgeOnly ->
+        if (legalAgeOnly) {
+            application.getString(R.string.main_all_students)
+        } else {
+            application.getString(R.string.main_legal_age_only)
+        }
+    }
+
+    fun filterStudents() {
+        legalAgeOnly.value = legalAgeOnly.value?.not() ?: true
+    }
+
+
     private val _onShowMessage: MutableLiveData<Event<String>> = MutableLiveData()
     val onShowMessage: LiveData<Event<String>>
         get() = _onShowMessage
 
-    val students: LiveData<List<Student>> = repository.queryAllStudents()
+
+    val lblEmptyViewVisibility: LiveData<Int> = students.map {
+        if (it.isEmpty()) View.VISIBLE else View.INVISIBLE
+    }
 
     fun deleteStudent(student: Student) {
         repository.deleteStudent(student)

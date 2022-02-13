@@ -24,12 +24,12 @@ class MainActivity : AppCompatActivity() {
         setOnItemClickListener { showStudent(currentList[it]) }
     }
 
-    private fun showStudent(student: Student) {
-        Toast.makeText(this, student.toString(), Toast.LENGTH_SHORT).show()
-    }
-
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(DefaultRepository, application)
+    }
+
+    private fun showStudent(student: Student) {
+        Toast.makeText(this, student.toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,15 +41,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.students.observe(this) { showStudents(it) }
+
+        viewModel.filterText.observe(this) {
+            binding.btnFilter.text = it
+        }
         viewModel.onShowMessage.observeEvent(this) {
             showMessage(it)
+        }
+        viewModel.lblEmptyViewVisibility.observe(this) {
+            binding.lblEmptyView.visibility = it
         }
     }
 
     private fun showStudents(students: List<Student>) {
         listAdapter.submitList(students)
-        binding.lblEmptyView.visibility =
-            if (students.isEmpty()) View.VISIBLE else View.INVISIBLE
     }
 
     private fun showMessage(it: String) {
@@ -59,8 +64,9 @@ class MainActivity : AppCompatActivity() {
     private fun setupViews() {
         setupRecyclerView()
         binding.btnDeleteAll.setOnClickListener {
-            viewModel.deleteAllStudents()
-        }
+            viewModel.deleteAllStudents()        }
+
+        binding.btnFilter.setOnClickListener { viewModel.filterStudents() }
     }
 
     private fun setupRecyclerView() {

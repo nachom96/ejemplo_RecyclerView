@@ -5,10 +5,11 @@ import com.example.proyectostudenlist.data.entity.Student
 
 interface Repository {
 
-    fun queryAllStudents(): LiveData<List<Student>>
+    fun queryStudents(): LiveData<List<Student>>
     fun deleteStudent(student: Student): Boolean
     fun addStudent(student: Student): Boolean
     fun deleteAllStudents()
+    fun queryLegalAgeStudents(): LiveData<List<Student>>
 
 
 }
